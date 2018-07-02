@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="#原生JS写移动端滚轮插件#前言： 滚轮经常在各大电商网站首页看到，所以是经常用到的，但是每次都要重新写JS大大降低了工作效率，这里就实例如何用js原生写出滚轮组件以便于重复使用，提高工作效率。实现：自适应移动端屏幕的滚轮，图片下方有原点配合图片的展示。单手拖动图片，图片会实时作出响应。 
+原理：以"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Louisa Chan"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="jsPlugin-Carousel"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="#原生JS写移动端滚轮插件#前言： 滚轮经常在各大电商网站首页看到，所以是经常用到的，但是每次都要重新写JS大大降低了工作效率，这里就实例如何用js原生写出滚轮组件以便于重复使用，提高工作效率。实现：自适应移动端屏幕的滚轮，图片下方有原点配合图片的展示。单手拖动图片，图片会实时作出响应。 
+原理：以"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Louisa&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>jsPlugin-Carousel - Louisa&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/calounilouisa/calounilouisa.github.io">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>jsPlugin-Carousel</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-07-02
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/菜鸟/">#菜鸟</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/菜鸟集/">菜鸟集</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="原生JS写移动端滚轮插件"><a href="#原生JS写移动端滚轮插件" class="headerlink" title="#原生JS写移动端滚轮插件#"></a>#原生JS写移动端滚轮插件#</h1><p><em>前言： 滚轮经常在各大电商网站首页看到，所以是经常用到的，但是每次都要重新写JS大大降低了工作效率，这里就实例如何用js原生写出滚轮组件以便于重复使用，提高工作效率。<br>实现：自适应移动端屏幕的滚轮，图片下方有原点配合图片的展示。单手拖动图片，图片会实时作出响应。</em> </p>
+<p><strong>原理：以视口为轮播图的宽度，有一个class为“。banner-content”的div作为7张图片(为什么是7张图？因为在第一张图过渡到第五张图/第五张图过渡到第一张图的时候，如果不加入过渡的图片，，因为第一张图和第五张图相距很远，那么屏幕就会显示出空白，这样视觉效果就不好，因此，为了不让用户察觉出异样，我们在第一张图前面加上第五张图，在第五张图后面加上第一张图作为视觉过渡)的容器所以div的宽度为screen.width * 7 。</strong></p>
+<p>写了一个HTML示例来运用JS插件，想直接看JS插件请跳到 二。</p>
+<p>###一、 首先完成HTML和CSS（这里用5张图作为示例），html代码如下：</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no&quot;&gt; &lt;!--使网页可以自适应不同的移动端屏幕  --&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./carousel.css&quot;&gt;  &lt;!--引入CSS样式文件--&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;banner-container&quot;&gt;
+          &lt;div class=&quot;banner-content&quot;&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/5.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/1.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/2.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/3.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/4.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/5.jpeg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;item&quot;&gt;
+              &lt;img src=&quot;./img/1.jpeg&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;banner-switch&quot;&gt;
+            &lt;span class=&quot;bullet active&quot;&gt;&lt;/span&gt;
+            &lt;span class=&quot;bullet&quot;&gt;&lt;/span&gt;
+            &lt;span class=&quot;bullet&quot;&gt;&lt;/span&gt;
+            &lt;span class=&quot;bullet&quot;&gt;&lt;/span&gt;
+            &lt;span class=&quot;bullet&quot;&gt;&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+//使用写好的JS插件，先引入JS插件文件
+&lt;script src = &quot;./carousel.js&quot;&gt;&lt;/script&gt;
+//再调用插件，并传入参数
+&lt;script&gt;
+  window.Carousel(
+    {
+      imgContent: &quot;.banner-content&quot;,
+      bul: &quot;.bullet&quot;,
+      item: &quot;.item&quot;,
+      screenWidth: screen.width,
+    }
+  )
+&lt;/script&gt;
+</code></pre><p>CSS样式代码如下：</p>
+<pre><code>/\* 设置body边距为0，防止出现白边\*/
+body{
+  margin: 0;
+  padding: 0;
+}
+.banner-container{
+  position: relative;/\* 设置relative 好让类为.banner-content和类为.banner-switch的div基于类为.banner-container 的div定位\*/
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+/\* banner-content 的width和left在js里面设置\*/
+.banner-content{
+  position: relative;
+  height: 100%;
+}
+.item{
+  height: 100%;
+  float: left;
+}
+.item img{
+  width: 100%;
+  height: 100%;
+}
+.banner-switch{
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  height: 7px;
+  display: flex;
+  justify-content: center;
+}
+.bullet{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin: 0 3px;
+  background-color: hsla(0,0%,100%,.5);/\* hsla四个参数分别表示：色调、饱和度、亮度、透明度，也可以用rgba来表示\*/
+}
+.bullet.active{
+  background-color: #fff;/\* 根据轮播的图片，响应的下方小圆点背景颜色改变\*/
+}   
+</code></pre><p>###二、写JS插件：<br><strong>口诀：</strong>  </p>
+<blockquote>
+<p>创建对象；具体化对象（加入属性和方法）；输出对象</p>
+</blockquote>
+<p><strong>原理：利用组合的构造函数和原始模型来创建对象，属性写在构造函数里面便于不同实例有自己不同的属性；通用的方法写在原型里，便于不同实例共享。将对象写在私有作用域里面避免被污染</strong></p>
+<p>####1、JS 创建Carousel对象：   </p>
+<pre><code>(function(){ 
+    function Carousel(){
+
+      }
+})()  
+</code></pre><p>####2、具体化对象：<br><em>需要的默认参数和方法：</em><br><strong>默认参数：</strong>获取需要设置相关属性或者运用方法的元素，通过类来获取。分别是 类为.banner-content 的div，类为.item的img，类为.bullet的下方标点；还有屏幕宽度；<br><strong>方法：</strong>a.初始化相关数据（类为.banner-content的div宽度，img的位置等），b.添加事件监听；c.动画；d.循环播放；</p>
+<p>#####<em>a.初始化相关数据</em> </p>
+<pre><code>//把init方法添加到构造函数里面，使用 this 始终取得对象本身，把方法、属性等也都是绑在对象上。(很重要!)
+   function Carousel(opt){
+    this.init(opt);
+} 
+//默认参数 
+const defaultArg = {
+    imgContent: &quot;.banner-content&quot;,
+    bul: &quot;.bullet&quot;,
+    item: &quot;.item&quot;,
+    screenWidth: screen.width,
+}
+//a.初始化相关数据: 添加init方法，初始化获得的参数并且设置相关初始化数据（获得元素、设置width和translatX）
+Carousel.prototype.init = function(opt){
+    this.params = {
+      ...defaultArg,
+      ...opt,
+    };//获取输入的opt，和原有的defaultArg进行合并重组，放到this.params里面方便后续的调用。
+    this.pos = 1;//设置图片位置为第一张图
+    //获取元素和元素集合
+    this.items = document.querySelectorAll(this.params.item);
+    this.imgContent = document.querySelector(this.params.imgContent);
+    this.buls = document.querySelectorAll(this.params.bul); 
+    this.itemlens = this.items.length;//获取图片数量
+    const relContentWidth = `${this.params.screenWidth * this.itemlens}px`;
+    //设置宽度和类为.banner-content 的div的位置
+    this.imgContent.style.width = relContentWidth;
+    this.imgContent.style.transform = `translateX(${-this.params.screenWidth * this.pos}px)`;
+    for (let i = 0; i &lt; this.itemlens; i++) {
+      const item = this.items[i];
+      item.style.width = `${this.params.screenWidth}px`;
+    }
+    }
+</code></pre><p>#####<em>b.添加事件监听：</em><br>移动端有如下事件：手指触摸开始touchstart,手指移动touchmove,手指触摸结束touchend;过渡结束transitionend</p>
+<pre><code>Carousel.prototype.addEvent = function(){
+    //在这里申明变量startX和startY便于在后续各类事件方法中取到
+    let startX = startY = 0;
+    //用that 替代this 因为在事件的执行环境里，this指的是绑定事件方法的节点，
+    无法取到对象Carousel，所以把this 赋值 给 that，在事件方法里面用that取到 Carousel。
+    const that = this;
+    const {screenWidth} = that.params;
+    //为目标元素this.imgContent绑定事件
+    this.imgContent.addEventListener(&quot;touchstart&quot;, function(e){
+        //获取事件触发时，手指所在的坐标X/Y
+        const touch = e.changedTouches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        //添加isClick属性，为了在transitionend的时候检测和判断是否要添加定时器
+        that.isClick = true;
+        //当检测到触摸的时候，取消循环播放
+        that.removePlay();//将在d.循环播放里讲到removePlay这个方法
+    })
+    this.imgContent.addEventListener(&quot;touchmove&quot;, function(e){
+        const move = e.changedTouches[0];
+        const moveX = move.clientX;
+        const moveY = move.clientY;
+        const movedX = moveX - startX;
+        const movedY = moveY - startY;
+        //判断是否符合横向移动条件，如果符合条件，则实时跟随手指滑动，并且通过preventDefault防止纵向滑动
+        if (Math.abs(movedX) &gt; (Math.abs(movedY) * 2)) {
+        that.imgContent.style.transitionDuration = &quot;0ms&quot;;
+        that.imgContent.style.transform = `translateX(${-screenWidth*that.pos + movedX}px)`; 
+        e.preventDefault();
+        } 
+    })
+    this.imgContent.addEventListener(&quot;touchend&quot;, function(e){
+        const moveEnd = e.changedTouches[0];
+        const endX = moveEnd.clientX;
+        const endY = moveEnd.clientY;
+        const distanceX = endX - startX;
+        const distanceY = endY - startY;
+        that.isClick = false;
+        //调用play方法，当满足移动条件时，才让图片切换到下一站，并且通过 return 不再执行后续的代码；
+        if (Math.abs(distanceX) &gt; 80 &amp;&amp; Math.abs(distanceX) &gt; (Math.abs(distanceY) * 2)) {
+        that.play(distanceX &lt; 0 ? 1 : -1);//在下一小节马上会讲到play方法
+        return;
+        }
+        //如果最终手指横向移动距离小于80并且小于2倍的纵向手指移动距离（典型例子：在过渡刚刚好结束的时候，手指点了一下就离开），则继续循环播放
+        if (Math.abs(distanceX) &lt;= (Math.abs(distanceY) * 2)){
+            that.intPlay();//将在d.循环播放里讲到intPlay这个方法
+        }
+        that.imgContent.style.transitionDuration = &quot;300ms&quot;;
+        that.imgContent.style.transform = `translateX(${-screenWidth * that.pos}px)`;
+    })
+    this.imgContent.addEventListener(&quot;transitionend&quot;, function(e){
+        //当过渡结束时，立刻将图片切换到对应的图片上。这里主要是为了在收尾切换时的效果，
+        在用户从第一张向→右边滑动时，先显示第0张图即5.jpg,再迅速检测事件transitionend事件，
+        过渡结束，立刻将原来的第0张图换成第6张图还是5.jpg，但是此时位置已经不一样了。
+        that.imgContent.style.transitionDuration = &quot;0ms&quot;;
+        that.imgContent.style.transform = `translateX(${-screenWidth * that.pos }px)`;
+        })
+        //检测isHasInterval和isClick属性，避免重复添加定时器以及在网页中需要定时器时添加定时器。
+        if(!that.isHasInterval &amp;&amp; !that.isClick){
+            that.intPlay();//将在d.循环播放里讲到intPlay这个方法
+        }
+}
+</code></pre><p>#####<em>c.动画：</em><br>在b中touchend事件中我引用了play方法实现图片的移动，接下来写play方法。   </p>
+<pre><code> Carousel.prototype.play = function(change){
+     const target = this.pos + change;
+     this.buls[this.pos-1].classList.remove(&quot;active&quot;);
+     this.pos = target;
+     if (this.pos === 0) {
+       this.pos = this.itemlens - 2;
+     }else if (this.pos === this.itemlens - 1) {
+       this.pos = 1
+     }
+     this.buls[this.pos -1].classList.add(&quot;active&quot;);
+     this.imgContent.style.transitionDuration = &quot;900ms&quot;;
+     //这里乘以 target 而不是已经变化好的pos就是为了让target可以到第6张图或者第0张图的位置，然后在后台监听transitionend事件并偷偷替换成第一张图或者第五张图的位置。
+     this.imgContent.style.transform = `translateX(${-this.params.screenWidth * target}px)`;
+}
+</code></pre><p>#####<em>d.循环播放：</em><br>通过abc,网页已经可以响应touch相关事件，如何一打开网页图片就动起来呢？需要用到setInterval和clearInterval。</p>
+<pre><code>//设置定时器
+Carousel.prototype.intPlay = function(){
+    const that = this;
+    //这里再次使用that 替代 this，同样因为在setInterval里面的function里面的this取不到对象Carousel
+    this.intePlay = setInterval(function(){
+      that.play(1);
+    }, 2000);
+    //设置isHasInterval属性，在transitionend事件检测这个属性，以便于判断是否需要增加定时器，避免重复添加定时器
+    that.isHasInterval = true;
+}
+//取消定时器
+Carousel.prototype.removePlay = function(){
+    clearInterval(this.intePlay);
+    this.isHasInterval = false;
+}
+</code></pre><p>####3、输出对象：    </p>
+<pre><code>window.Carousel = function(opt){
+    return new Carousel(opt);
+  }
+</code></pre><p><strong>Q：如何在html文档里调用插件？<br>A：请看html示例的<code>&lt;/html&gt;</code>示例后的script代码</strong></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/calounilouisa/calounilouisa.github.io" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                
+                <p class="copyright text-muted"><span id="busuanzi_container_site_uv">
+                  Blog  Viewrs: <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+    
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
