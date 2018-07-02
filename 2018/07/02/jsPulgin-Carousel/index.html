@@ -316,7 +316,7 @@ body{
 }
 .bullet.active{
   background-color: #fff;/* 根据轮播的图片，响应的下方小圆点背景颜色改变*/
-}   
+}       
 </code></pre><p><br></p>
 <h3 id="二、写JS插件："><a href="#二、写JS插件：" class="headerlink" title="二、写JS插件："></a>二、写JS插件：</h3><p><strong>口诀：</strong>  </p>
 <blockquote>
@@ -328,9 +328,7 @@ body{
 
       }
 })()  
-</code></pre><p><br></p>
-<h4 id="2、具体化对象："><a href="#2、具体化对象：" class="headerlink" title="2、具体化对象："></a>2、具体化对象：</h4><p><em>需要的默认参数和方法：</em><br><strong>默认参数：</strong>获取需要设置相关属性或者运用方法的元素，通过类来获取。分别是 类为.banner-content 的div，类为.item的img，类为.bullet的下方标点；还有屏幕宽度；<br><strong>方法：</strong>a.初始化相关数据（类为.banner-content的div宽度，img的位置等），b.添加事件监听；c.动画；d.循环播放；</p>
-<p><br></p>
+</code></pre><h4 id="2、具体化对象："><a href="#2、具体化对象：" class="headerlink" title="2、具体化对象："></a>2、具体化对象：</h4><p><em>需要的默认参数和方法：</em><br><strong>默认参数：</strong>获取需要设置相关属性或者运用方法的元素，通过类来获取。分别是 类为.banner-content 的div，类为.item的img，类为.bullet的下方标点；还有屏幕宽度；<br><strong>方法：</strong>a.初始化相关数据（类为.banner-content的div宽度，img的位置等），b.添加事件监听；c.动画；d.循环播放；<br><br></p>
 <h5 id="a-初始化相关数据"><a href="#a-初始化相关数据" class="headerlink" title="a.初始化相关数据"></a><em>a.初始化相关数据</em></h5><pre><code>//把init方法添加到构造函数里面，使用 this 始终取得对象本身，把方法、属性等也都是绑在对象上。(很重要!)
    function Carousel(opt){
     this.init(opt);
