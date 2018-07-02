@@ -219,7 +219,7 @@
                 <h1 id="原生JS写移动端滚轮插件"><a href="#原生JS写移动端滚轮插件" class="headerlink" title="原生JS写移动端滚轮插件"></a>原生JS写移动端滚轮插件</h1><hr>
 <p><em>前言： 滚轮经常在各大电商网站首页看到，所以是经常用到的，但是每次都要重新写JS大大降低了工作效率，这里就实例如何用js原生写出滚轮组件以便于重复使用，提高工作效率。<br>实现：自适应移动端屏幕的滚轮，图片下方有原点配合图片的展示。单手拖动图片，图片会实时作出响应。</em> </p>
 <p><strong>原理：以视口为轮播图的宽度，有一个class为”.banner-content”的div作为7张图片(为什么是7张图？因为在第一张图过渡到第五张图/第五张图过渡到第一张图的时候，如果不加入过渡的图片，，因为第一张图和第五张图相距很远，那么屏幕就会显示出空白，这样视觉效果就不好，因此，为了不让用户察觉出异样，我们在第一张图前面加上第五张图，在第五张图后面加上第一张图作为视觉过渡)的容器所以div的宽度为screen.width * 7 。</strong></p>
-<p>写了一个HTML示例来运用JS插件，想直接看JS插件请跳到 二。</p>
+<p>我写了一个HTML示例来运用JS插件，想直接看JS插件请跳到 二。</p>
 <h3 id="一、-首先完成HTML和CSS（这里用5张图作为示例），html代码如下："><a href="#一、-首先完成HTML和CSS（这里用5张图作为示例），html代码如下：" class="headerlink" title="一、 首先完成HTML和CSS（这里用5张图作为示例），html代码如下："></a>一、 首先完成HTML和CSS（这里用5张图作为示例），html代码如下：</h3><pre><code>&lt;html&gt;
     &lt;head&gt;
         &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
@@ -317,7 +317,8 @@ body{
 .bullet.active{
   background-color: #fff;/* 根据轮播的图片，响应的下方小圆点背景颜色改变*/
 }   
-</code></pre><h3 id="二、写JS插件："><a href="#二、写JS插件：" class="headerlink" title="二、写JS插件："></a>二、写JS插件：</h3><p><strong>口诀：</strong>  </p>
+</code></pre><p><br></p>
+<h3 id="二、写JS插件："><a href="#二、写JS插件：" class="headerlink" title="二、写JS插件："></a>二、写JS插件：</h3><p><strong>口诀：</strong>  </p>
 <blockquote>
 <p>创建对象；具体化对象（加入属性和方法）；输出对象</p>
 </blockquote>
@@ -327,7 +328,9 @@ body{
 
       }
 })()  
-</code></pre><h4 id="2、具体化对象："><a href="#2、具体化对象：" class="headerlink" title="2、具体化对象："></a>2、具体化对象：</h4><p><em>需要的默认参数和方法：</em><br><strong>默认参数：</strong>获取需要设置相关属性或者运用方法的元素，通过类来获取。分别是 类为.banner-content 的div，类为.item的img，类为.bullet的下方标点；还有屏幕宽度；<br><strong>方法：</strong>a.初始化相关数据（类为.banner-content的div宽度，img的位置等），b.添加事件监听；c.动画；d.循环播放；</p>
+</code></pre><p><br></p>
+<h4 id="2、具体化对象："><a href="#2、具体化对象：" class="headerlink" title="2、具体化对象："></a>2、具体化对象：</h4><p><em>需要的默认参数和方法：</em><br><strong>默认参数：</strong>获取需要设置相关属性或者运用方法的元素，通过类来获取。分别是 类为.banner-content 的div，类为.item的img，类为.bullet的下方标点；还有屏幕宽度；<br><strong>方法：</strong>a.初始化相关数据（类为.banner-content的div宽度，img的位置等），b.添加事件监听；c.动画；d.循环播放；</p>
+<p><br></p>
 <h5 id="a-初始化相关数据"><a href="#a-初始化相关数据" class="headerlink" title="a.初始化相关数据"></a><em>a.初始化相关数据</em></h5><pre><code>//把init方法添加到构造函数里面，使用 this 始终取得对象本身，把方法、属性等也都是绑在对象上。(很重要!)
    function Carousel(opt){
     this.init(opt);
@@ -360,7 +363,9 @@ Carousel.prototype.init = function(opt){
       item.style.width = `${this.params.screenWidth}px`;
     }
     }
-</code></pre><h5 id="b-添加事件监听：-移动端有如下事件：手指触摸开始touchstart-手指移动touchmove-手指触摸结束touchend-过渡结束transitionend"><a href="#b-添加事件监听：-移动端有如下事件：手指触摸开始touchstart-手指移动touchmove-手指触摸结束touchend-过渡结束transitionend" class="headerlink" title="b.添加事件监听：      移动端有如下事件：手指触摸开始touchstart,手指移动touchmove,手指触摸结束touchend;过渡结束transitionend"></a><em>b.添加事件监听：</em>      移动端有如下事件：手指触摸开始touchstart,手指移动touchmove,手指触摸结束touchend;过渡结束transitionend</h5><pre><code>Carousel.prototype.addEvent = function(){
+</code></pre><p><br></p>
+<h5 id="b-添加事件监听："><a href="#b-添加事件监听：" class="headerlink" title="b.添加事件监听："></a><em>b.添加事件监听：</em></h5><p>移动端有如下事件：手指触摸开始touchstart,手指移动touchmove,手指触摸结束touchend;过渡结束transitionend</p>
+<pre><code>Carousel.prototype.addEvent = function(){
     //在这里申明变量startX和startY便于在后续各类事件方法中取到
     let startX = startY = 0;
     //用that 替代this 因为在事件的执行环境里，this指的是绑定事件方法的节点，
@@ -422,7 +427,8 @@ Carousel.prototype.init = function(opt){
             that.intPlay();//将在d.循环播放里讲到intPlay这个方法
         }
 }
-</code></pre><h5 id="c-动画："><a href="#c-动画：" class="headerlink" title="c.动画："></a><em>c.动画：</em></h5><p>在b中touchend事件中我引用了play方法实现图片的移动，接下来写play方法。   </p>
+</code></pre><p><br></p>
+<h5 id="c-动画："><a href="#c-动画：" class="headerlink" title="c.动画："></a><em>c.动画：</em></h5><p>在b中touchend事件中我引用了play方法实现图片的移动，接下来写play方法。   </p>
 <pre><code> Carousel.prototype.play = function(change){
      const target = this.pos + change;
      this.buls[this.pos-1].classList.remove(&quot;active&quot;);
@@ -437,7 +443,8 @@ Carousel.prototype.init = function(opt){
      //这里乘以 target 而不是已经变化好的pos就是为了让target可以到第6张图或者第0张图的位置，然后在后台监听transitionend事件并偷偷替换成第一张图或者第五张图的位置。
      this.imgContent.style.transform = `translateX(${-this.params.screenWidth * target}px)`;
 }
-</code></pre><h5 id="d-循环播放："><a href="#d-循环播放：" class="headerlink" title="d.循环播放："></a><em>d.循环播放：</em></h5><p>通过abc,网页已经可以响应touch相关事件，如何一打开网页图片就动起来呢？需要用到setInterval和clearInterval。</p>
+</code></pre><p><br></p>
+<h5 id="d-循环播放："><a href="#d-循环播放：" class="headerlink" title="d.循环播放："></a><em>d.循环播放：</em></h5><p>通过abc,网页已经可以响应touch相关事件，如何一打开网页图片就动起来呢？需要用到setInterval和clearInterval。</p>
 <pre><code>//设置定时器
 Carousel.prototype.intPlay = function(){
     const that = this;
@@ -453,7 +460,8 @@ Carousel.prototype.removePlay = function(){
     clearInterval(this.intePlay);
     this.isHasInterval = false;
 }
-</code></pre><h4 id="3、输出对象："><a href="#3、输出对象：" class="headerlink" title="3、输出对象："></a>3、输出对象：</h4><pre><code>window.Carousel = function(opt){
+</code></pre><p><br></p>
+<h4 id="3、输出对象："><a href="#3、输出对象：" class="headerlink" title="3、输出对象："></a>3、输出对象：</h4><pre><code>window.Carousel = function(opt){
     return new Carousel(opt);
   }
 </code></pre><p><strong>Q：如何在html文档里调用插件？<br>A：请看html示例的<code>&lt;/html&gt;</code>示例后的script代码</strong></p>
